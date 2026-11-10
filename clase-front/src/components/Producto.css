@@ -1,0 +1,27 @@
+.tarjeta-producto {
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px;
+  width: 140px;
+  background-color: white;
+  font-family: sans-serif;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra muy sutil */
+}
+
+.titulo-producto {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #0f172a; /* Texto oscuro casi negro */
+}
+
+.precio-producto {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+.stock-producto {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b; /* Texto grisáceo para el stock */
+}
