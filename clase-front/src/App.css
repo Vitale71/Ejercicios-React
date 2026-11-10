@@ -1,10 +1,11 @@
-.contenedor-principal {
+.contenedor-principal { /* Este contenedor es el que contiene todas las tarjetas */
   display: flex; /* Pone las tarjetas una al lado de la otra */
   gap: 20px; /* Separación entre las tarjetas */
   padding: 40px;
   background-color: #f8fafc; /* Un fondo apenitas gris para que las tarjetas blancas resalten */
   min-height: 100vh; /* Para que ocupe toda la pantalla */
   
-  /* Esta es la propiedad mágica que evita que se estiren */
+  /* Centrado horizontal y alineación al inicio verticalmente */
+  justify-content: center;  
   align-items: flex-start;
 }
