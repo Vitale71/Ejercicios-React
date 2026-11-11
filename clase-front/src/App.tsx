@@ -1,6 +1,7 @@
 import { Producto } from './components/Producto';
 import { Contador } from './components/Contador';
-import { Pregunta } from './components/Pregunta'; 
+import { Pregunta } from './components/Pregunta';
+import { Conversor } from './components/Conversor';
 import './App.css';
 
 function App() {
@@ -35,6 +36,14 @@ function App() {
           pregunta="¿Qué es JSX?" 
           respuesta="Una sintaxis que permite escribir estructura parecida a HTML dentro de JavaScript. Se transforma en llamadas a funciones de React." 
         />
+      </section>
+
+      <hr className="separador" />
+
+      {/* Sección del Ejercicio 4 */}
+      <section className="seccion-ejercicio">
+        <h2>4. Conversor de temperatura</h2>
+        <Conversor />
       </section>
       
     </div>
