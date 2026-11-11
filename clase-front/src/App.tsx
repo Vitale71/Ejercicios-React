@@ -1,14 +1,12 @@
 import { Producto } from './components/Producto';
 import { Contador } from './components/Contador';
+import { Pregunta } from './components/Pregunta'; 
 import './App.css';
 
 function App() {
   return (
     <div className="contenedor-principal">
       <h1 className="titulo-tp">Trabajo Práctico React</h1>
-
-      {/* Línea divisoria */}
-      <hr className="separador" />
 
       {/* Sección del Ejercicio 1 */}
       <section className="seccion-ejercicio">
@@ -20,13 +18,23 @@ function App() {
         </div>
       </section>
 
-      {/* Línea divisoria */}
       <hr className="separador" />
 
       {/* Sección del Ejercicio 2 */}
       <section className="seccion-ejercicio">
         <h2>2. Contador con límites</h2>
         <Contador />
+      </section>
+
+      <hr className="separador" />
+
+      {/* Sección del Ejercicio 3 */}
+      <section className="seccion-ejercicio">
+        <h2>3. Mostrar y ocultar</h2>
+        <Pregunta 
+          pregunta="¿Qué es JSX?" 
+          respuesta="Una sintaxis que permite escribir estructura parecida a HTML dentro de JavaScript. Se transforma en llamadas a funciones de React." 
+        />
       </section>
       
     </div>

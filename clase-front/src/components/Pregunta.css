@@ -1,0 +1,40 @@
+.tarjeta-pregunta {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px; /* Limitamos el ancho para que se lea mejor */
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.titulo-pregunta {
+  margin: 0 0 16px 0;
+  color: #0f172a;
+  font-size: 1.2rem;
+}
+
+.boton-alternar {
+  background-color: #e0f2fe; /* Celeste clarito */
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background-color 0.2s;
+}
+
+.boton-alternar:hover {
+  background-color: #bae6fd;
+}
+
+.texto-respuesta {
+  margin: 0;
+  color: #334155;
+  line-height: 1.5; /* Mejora la legibilidad del párrafo */
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+}
