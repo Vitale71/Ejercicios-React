@@ -1,0 +1,48 @@
+.tarjeta-contador {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 20px 30px;
+  width: fit-content;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.numero-contador {
+  font-size: 3rem;
+  margin: 0 0 20px 0;
+  color: #0f172a;
+}
+
+.botones-contador {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.botones-contador button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: 1px solid #002d6d;
+  border-radius: 6px;
+  background-color: #77abdf;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Estilo para los botones cuando están deshabilitados */
+.botones-contador button:disabled {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-color: #cbd5e1;
+}
+
+.botones-contador button:not(:disabled):hover {
+  background-color: #e2e8f0;
+}
+
+.mensaje-limite {
+  margin: 10px 0 0 0;
+  color: #475569;
+  font-size: 0.9rem;
+}

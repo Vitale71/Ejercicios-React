@@ -1,3 +1,4 @@
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -14,7 +15,7 @@
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
-
+/*
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
@@ -27,9 +28,9 @@
 
   @media (max-width: 1024px) {
     font-size: 16px;
-  }
+  }*/
 }
-
+/*
 #root {
   width: 1126px;
   max-width: 100%;
@@ -41,7 +42,7 @@
   flex-direction: column;
   box-sizing: border-box;
 }
-
+*/
 body {
   margin: 0;
 }

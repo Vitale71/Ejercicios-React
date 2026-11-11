@@ -1,11 +1,38 @@
 .contenedor-principal { /* Este contenedor es el que contiene todas las tarjetas */
   display: flex; /* Pone las tarjetas una al lado de la otra */
-  gap: 20px; /* Separación entre las tarjetas */
+  flex-direction: column; /* Pone los elementos uno debajo del otro */
+  gap: 30px; /* Separación entre las tarjetas */
   padding: 40px;
   background-color: #f8fafc; /* Un fondo apenitas gris para que las tarjetas blancas resalten */
   min-height: 100vh; /* Para que ocupe toda la pantalla */
   
   /* Centrado horizontal y alineación al inicio verticalmente */
-  justify-content: center;  
+  justify-content: flex-start;  
   align-items: flex-start;
+}
+
+.titulo-tp {
+  margin: 0;
+  color: #1e293b;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.seccion-ejercicio h2 {
+  color: #334155;
+  margin-bottom: 20px;
+}
+
+.contenedor-productos {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; 
+}
+
+.separador {
+  border: 0;
+  height: 1px;
+  background-color: #e2e8f0;
+  width: 100%;
+  margin: 10px 0;
 }
