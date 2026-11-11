@@ -1,0 +1,83 @@
+.tarjeta-lista {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.controles-lista {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.input-lista {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  flex-grow: 1; /* Hace que el input ocupe todo el espacio sobrante */
+  outline: none;
+}
+
+.input-lista:focus {
+  border-color: #3b82f6;
+}
+
+.boton-agregar {
+  background-color: #dbeafe;
+  color: #1e293b;
+  border: 1px solid #94a3b8;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.boton-agregar:hover {
+  background-color: #bfdbfe;
+}
+
+.mensaje-vacio {
+  margin: 0;
+  color: #64748b;
+  font-style: italic;
+}
+
+.lista-items {
+  margin: 0;
+  padding-left: 20px; /* Espacio para las viñetas */
+}
+
+.item-compra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+/* Capitaliza la primera letra del producto para que se vea más ordenado */
+.nombre-item::first-letter {
+  text-transform: uppercase;
+}
+
+.boton-eliminar {
+  background-color: #dbeafe;
+  color: #1e293b;
+  border: 1px solid #93c5fd;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  background-color: #bfdbfe;
+}

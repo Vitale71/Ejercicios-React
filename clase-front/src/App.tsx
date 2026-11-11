@@ -2,6 +2,8 @@ import { Producto } from './components/Producto';
 import { Contador } from './components/Contador';
 import { Pregunta } from './components/Pregunta';
 import { Conversor } from './components/Conversor';
+import { ListaCompras } from './components/ListaCompras';
+import { Buscador } from './components/Buscador';
 import './App.css';
 
 function App() {
@@ -9,7 +11,6 @@ function App() {
     <div className="contenedor-principal">
       <h1 className="titulo-tp">Trabajo Práctico React</h1>
 
-      {/* Sección del Ejercicio 1 */}
       <section className="seccion-ejercicio">
         <h2>1. Tarjetas de producto</h2>
         <div className="contenedor-productos">
@@ -21,7 +22,6 @@ function App() {
 
       <hr className="separador" />
 
-      {/* Sección del Ejercicio 2 */}
       <section className="seccion-ejercicio">
         <h2>2. Contador con límites</h2>
         <Contador />
@@ -29,7 +29,6 @@ function App() {
 
       <hr className="separador" />
 
-      {/* Sección del Ejercicio 3 */}
       <section className="seccion-ejercicio">
         <h2>3. Mostrar y ocultar</h2>
         <Pregunta 
@@ -40,12 +39,27 @@ function App() {
 
       <hr className="separador" />
 
-      {/* Sección del Ejercicio 4 */}
       <section className="seccion-ejercicio">
         <h2>4. Conversor de temperatura</h2>
         <Conversor />
       </section>
-      
+
+      <hr className="separador" />
+
+      {/* Sección del Ejercicio 5 */}
+      <section className="seccion-ejercicio">
+        <h2>5. Lista de compras</h2>
+        <ListaCompras />
+      </section>
+
+      <hr className="separador" />
+
+      {/* Sección del Ejercicio 6 */}
+      <section className="seccion-ejercicio">
+        <h2>6. Buscador</h2>
+        <Buscador />
+      </section>
+
     </div>
   );
 }

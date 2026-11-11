@@ -1,0 +1,41 @@
+.tarjeta-buscador {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.input-buscador {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  outline: none;
+  box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
+}
+
+.input-buscador:focus {
+  border-color: #3b82f6;
+}
+
+.cantidad-resultados {
+  margin: 0 0 16px 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.lista-lenguajes {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.item-lenguaje {
+  color: #1e293b;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}

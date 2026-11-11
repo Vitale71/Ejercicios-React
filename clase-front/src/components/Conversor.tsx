@@ -34,7 +34,7 @@ export function Conversor() {
           </h2>
           
           {/* Si la temperatura supera los 30 °C, mostramos el mensaje extra[cite: 6] */}
-          {celsiusNum > 30 && (
+          {celsiusNum > 29 && (
             <p className="mensaje-calor">Hace calor</p>
           )}
         </>
