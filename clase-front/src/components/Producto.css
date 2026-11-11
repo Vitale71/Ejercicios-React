@@ -25,3 +25,10 @@
   font-size: 0.9rem;
   color: #64748b; /* texto diferenciado para el stock */
 }
+
+.texto-oferta {
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 1rem;
+}

@@ -11,10 +11,14 @@ function App() {
     <div className="contenedor-principal">
       <h1 className="titulo-tp">Trabajo Práctico React</h1>
 
+      {/* Sección del Ejercicio 1 */}
       <section className="seccion-ejercicio">
         <h2>1. Tarjetas de producto</h2>
         <div className="contenedor-productos">
-          <Producto nombre="Teclado" precio={45000} stock={12} />
+          {/* Le pasamos la prop 'oferta' solo al teclado[cite: 9] */}
+          <Producto nombre="Teclado" precio={45000} stock={12} oferta={true} />
+          
+          {/* El Mouse y el Monitor no necesitan la prop porque es opcional */}
           <Producto nombre="Mouse" precio={18000} stock={0} />
           <Producto nombre="Monitor" precio={320000} stock={3} />
         </div>
