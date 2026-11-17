@@ -37,6 +37,28 @@ function readDetail(text: string, status: number): string {
   return text || `Error ${status}`
 }
 
+// --- NUEVO: Traductor de errores ---
+function getCustomMessage(status: number, defaultMessage: string): string {
+  switch (status) {
+    case 401:
+      // Distinguimos si es un login fallido o un token vencido
+      if (defaultMessage.includes('password') || defaultMessage.includes('User')) {
+        return 'Email o contraseña incorrectos.'
+      }
+      return 'Tu sesión expiró. Volvé a iniciar sesión.'
+    case 403:
+      return 'No tenés permiso para hacer esto.'
+    case 404:
+      return 'El recurso solicitado no existe.'
+    case 500:
+      return 'Hubo un error en el servidor. Intentá de nuevo más tarde.'
+    default:
+      // Para el 422 (errores de validación) mantenemos el mensaje detallado de FastAPI
+      return defaultMessage
+  }
+}
+// -----------------------------------
+
 export async function apiFetch<T>(
   path: string,
   options: RequestOptions = {},
@@ -65,7 +87,13 @@ export async function apiFetch<T>(
   if (!response.ok) {
     // Con token, un 401 es una sesión vencida. Sin token, es un login fallido.
     if (response.status === 401 && token) onUnauthorized()
-    throw new ApiError(response.status, readDetail(text, response.status))
+
+      // --- MODIFICADO: Usamos el traductor ---
+      const detail = readDetail(text, response.status)
+      const mensajeFinal = getCustomMessage(response.status, detail)
+
+     throw new ApiError(response.status, mensajeFinal)
+    // --------------------------------------
   }
   return JSON.parse(text) as T
 }
