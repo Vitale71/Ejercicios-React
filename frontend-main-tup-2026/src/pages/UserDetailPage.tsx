@@ -12,6 +12,9 @@ export function UserDetailPage() {
   const [selectedRole, setSelectedRole] = useState('')
   const [actionError, setActionError] = useState<string | null>(null)
 
+  // --- NUEVO ESTADO ---
+  const [isActionLoading, setIsActionLoading] = useState(false)
+
   const { data: user, error, loading, reload } = useFetch(
     () => getUser(userId),
     [userId],
@@ -22,12 +25,17 @@ export function UserDetailPage() {
   // Después de asignar o quitar: recargar y, si soy yo, recalcular permisos.
   async function changeRoles(action: () => Promise<unknown>) {
     setActionError(null)
+    setIsActionLoading(true)
+
     try {
       await action()
       reload()
       if (userId === me?.id) await refreshSession()
     } catch (e) {
       setActionError((e as Error).message)
+    }
+    finally {
+      setIsActionLoading(false) // <-- Terminó (con éxito o error)
     }
   }
 
@@ -57,6 +65,7 @@ export function UserDetailPage() {
             {can('update_users') && (
               <button
                 type="button"
+                disabled={isActionLoading} // <-- DESHABILITADO
                 onClick={() =>
                   changeRoles(() => removeRoleFromUser(user.id, role.id))
                 }
@@ -75,6 +84,7 @@ export function UserDetailPage() {
           <select
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
+            disabled={isActionLoading}
           >
             <option value="">Elegí un rol</option>
             {availableRoles.map((role) => (
@@ -85,7 +95,8 @@ export function UserDetailPage() {
           </select>
           <button
             type="button"
-            disabled={!selectedRole}
+            // Deshabilitado si no hay rol seleccionado O si está cargando
+            disabled={!selectedRole || isActionLoading} 
             onClick={() => {
               changeRoles(() => addRoleToUser(user.id, Number(selectedRole)))
               setSelectedRole('')

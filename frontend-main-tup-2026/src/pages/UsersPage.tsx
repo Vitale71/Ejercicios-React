@@ -18,6 +18,7 @@ export function UsersPage() {
   const [search, setSearch] = useState('')         // lo que se busca
   const [onlyAdults, setOnlyAdults] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
   // 1. NUEVO ESTADO: Guardamos la dirección del orden (ascendente por defecto)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
@@ -47,12 +48,17 @@ export function UsersPage() {
 
   async function handleDelete(id: number) {
     setActionError(null)
+    setDeletingId(id) // <-- Empezó la carga, guardamos el ID
+
     try {
       await deleteUser(id)
       showSuccess('Usuario eliminado correctamente')
       reload() // vuelve a pedir la lista, ya sin el usuario borrado
     } catch (e) {
       setActionError((e as Error).message)
+    } finally {
+      // El finally se ejecuta SIEMPRE (haya error o no)
+      setDeletingId(null) // <-- Terminó la carga, liberamos el botón
     }
   }
 
@@ -124,6 +130,7 @@ export function UsersPage() {
                     <ConfirmButton
                       label="Borrar"
                       onConfirm={() => handleDelete(user.id)}
+                      disabled={deletingId === user.id} // <-- NUEVA PROP (o el nombre que uses en tu ConfirmButton)
                     />
                   )}
                 </td>
