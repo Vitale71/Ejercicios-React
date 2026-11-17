@@ -4,6 +4,7 @@ import { Pregunta } from './components/Pregunta';
 import { Conversor } from './components/Conversor';
 import { ListaCompras } from './components/ListaCompras';
 import { Buscador } from './components/Buscador';
+import { ProductoOferta } from './components/Producto-oferta';
 import './App.css';
 
 function App() {
@@ -15,10 +16,7 @@ function App() {
       <section className="seccion-ejercicio">
         <h2>1. Tarjetas de producto</h2>
         <div className="contenedor-productos">
-          {/* Le pasamos la prop 'oferta' solo al teclado[cite: 9] */}
-          <Producto nombre="Teclado" precio={45000} stock={12} oferta={true} />
-          
-          {/* El Mouse y el Monitor no necesitan la prop porque es opcional */}
+          <Producto nombre="Teclado" precio={45000} stock={12} />
           <Producto nombre="Mouse" precio={18000} stock={0} />
           <Producto nombre="Monitor" precio={320000} stock={3} />
         </div>
@@ -74,11 +72,11 @@ function App() {
         <h2>7. Tarjetas de producto con oferta</h2>
         <div className="contenedor-productos">
           {/* Le pasamos la prop 'oferta' solo al teclado[cite: 9] */}
-          <Producto nombre="Teclado" precio={45000} stock={12} oferta={true} />
+          <ProductoOferta nombre="Teclado" precio={45000} stock={12} oferta={true} />
           
           {/* El Mouse y el Monitor no necesitan la prop porque es opcional */}
-          <Producto nombre="Mouse" precio={18000} stock={0} />
-          <Producto nombre="Monitor" precio={320000} stock={3} />
+          <ProductoOferta nombre="Mouse" precio={18000} stock={0} />
+          <ProductoOferta nombre="Monitor" precio={320000} stock={3} />
         </div>
       </section>
 

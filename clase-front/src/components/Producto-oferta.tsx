@@ -8,7 +8,7 @@ interface ProductoProps {
   oferta?: boolean; // El signo de interrogación la hace opcional
 }
 
-export function Producto({ nombre, precio, stock, oferta }: ProductoProps) {
+export function ProductoOferta({ nombre, precio, stock, oferta }: ProductoProps) {
   return (
     <div className="tarjeta-producto">
       <h3 className="titulo-producto">{nombre}</h3>
