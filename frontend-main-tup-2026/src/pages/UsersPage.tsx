@@ -6,11 +6,13 @@ import { ConfirmButton } from '../components/ConfirmButton'
 import { useAuth } from '../context/useAuth'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useFetch } from '../hooks/useFetch'
+import { useToast } from '../context/useToast'
 
 const PAGE_SIZE = 5
 
 export function UsersPage() {
   const { can } = useAuth() // nuevo
+  const { showSuccess } = useToast()
   const [offset, setOffset] = useState(0)
   const [searchText, setSearchText] = useState('') // lo que se escribe
   const [search, setSearch] = useState('')         // lo que se busca
@@ -47,6 +49,7 @@ export function UsersPage() {
     setActionError(null)
     try {
       await deleteUser(id)
+      showSuccess('Usuario eliminado correctamente')
       reload() // vuelve a pedir la lista, ya sin el usuario borrado
     } catch (e) {
       setActionError((e as Error).message)

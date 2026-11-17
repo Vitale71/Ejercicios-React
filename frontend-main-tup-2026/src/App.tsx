@@ -9,18 +9,21 @@ import { RolesPage } from './pages/RolesPage'
 import { UserDetailPage } from './pages/UserDetailPage'
 import { UserFormPage } from './pages/UserFormPage'
 import { UsersPage } from './pages/UsersPage'
+import { ToastProvider } from './context/ToastContext'
+import { Toast } from './components/Toast'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <ToastProvider>
+        <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route element={<ProtectedRoute />}>    {/* 1) ¿hay sesión? */}
-            <Route element={<Layout />}>           {/* 2) menú, Salir */}
-              <Route path="/users" element={<UsersPage />} />
-              <Route path="/users/new" element={<UserFormPage />} />
-              <Route path="/users/:id" element={<UserDetailPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route element={<ProtectedRoute />}>    {/* 1) ¿hay sesión? */}
+              <Route element={<Layout />}>           {/* 2) menú, Salir */}
+                <Route path="/users" element={<UsersPage />} />
+                <Route path="/users/new" element={<UserFormPage />} />
+                <Route path="/users/:id" element={<UserDetailPage />} />
               <Route path="/users/:id/edit" element={<UserFormPage />} />
               {/* nuevas: */}
               <Route path="/roles" element={<RolesPage />} />
@@ -31,7 +34,9 @@ export default function App() {
           </Route>
           <Route path="*" element={<Navigate to="/users" replace />} />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+        <Toast />
+        </BrowserRouter>
+      </ToastProvider>
+    </AuthProvider>
   )
 }

@@ -5,6 +5,7 @@ import type { UserDetail } from '../api/types'
 import { COUNTRIES, createUser, getUser, updateUser } from '../api/users'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useFetch } from '../hooks/useFetch'
+import { useToast } from '../context/useToast'
 
 // PATCH /user/{id} exige una contraseña de 4+ caracteres, pero la ignora.
 const UNUSED_PASSWORD = 'sin-cambios'
@@ -28,6 +29,7 @@ function EditUser({ id }: { id: number }) {
 // Sin `user` da de alta; con `user` edita.
 function UserForm({ user }: { user?: UserDetail }) {
   const navigate = useNavigate()
+  const { showSuccess } = useToast()
   const [name, setName] = useState(user?.name ?? '')
   const [age, setAge] = useState(user ? String(user.age) : '')
   const [countryId, setCountryId] = useState(
@@ -50,9 +52,11 @@ function UserForm({ user }: { user?: UserDetail }) {
     try {
       if (user) {
         await updateUser(user.id, payload)
+        showSuccess('Usuario actualizado correctamente')
         navigate(`/users/${user.id}`)
       } else {
         const created = await createUser(payload)
+        showSuccess('Usuario creado correctamente')
         navigate(`/users/${created.id}`)
       }
     } catch (e) {
