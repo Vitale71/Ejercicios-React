@@ -26,6 +26,7 @@ function App() {
 
       <hr className="separador" />
 
+      {/* Sección del Ejercicio 2 */}
       <section className="seccion-ejercicio">
         <h2>2. Contador con límites</h2>
         <Contador />
@@ -33,6 +34,7 @@ function App() {
 
       <hr className="separador" />
 
+      {/* Sección del Ejercicio 3 */}
       <section className="seccion-ejercicio">
         <h2>3. Mostrar y ocultar</h2>
         <Pregunta 
@@ -43,6 +45,7 @@ function App() {
 
       <hr className="separador" />
 
+      {/* Sección del Ejercicio 4 */}
       <section className="seccion-ejercicio">
         <h2>4. Conversor de temperatura</h2>
         <Conversor />
@@ -62,6 +65,21 @@ function App() {
       <section className="seccion-ejercicio">
         <h2>6. Buscador</h2>
         <Buscador />
+      </section>
+
+      <hr className="separador" />
+
+      {/* Sección del Ejercicio 7 */}
+      <section className="seccion-ejercicio">
+        <h2>7. Tarjetas de producto con oferta</h2>
+        <div className="contenedor-productos">
+          {/* Le pasamos la prop 'oferta' solo al teclado[cite: 9] */}
+          <Producto nombre="Teclado" precio={45000} stock={12} oferta={true} />
+          
+          {/* El Mouse y el Monitor no necesitan la prop porque es opcional */}
+          <Producto nombre="Mouse" precio={18000} stock={0} />
+          <Producto nombre="Monitor" precio={320000} stock={3} />
+        </div>
       </section>
 
     </div>
