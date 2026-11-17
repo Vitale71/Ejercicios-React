@@ -17,12 +17,25 @@ export function UsersPage() {
   const [onlyAdults, setOnlyAdults] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
 
+  // 1. NUEVO ESTADO: Guardamos la dirección del orden (ascendente por defecto)
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+
   // Un solo pedido que depende de los filtros: si cambia uno, se pide de nuevo.
   const { data: users, error, loading, reload } = useFetch(() => {
     if (search) return searchUsers(search)
     if (onlyAdults) return getAdults()
     return getUsers(offset, PAGE_SIZE)
   }, [search, onlyAdults, offset])
+
+  // 2. LÓGICA DE ORDENAMIENTO AL RENDERIZAR
+  // Hacemos una copia de users (por si es null usamos []) y la ordenamos
+  const sortedUsers = [...(users ?? [])].sort((a, b) => {
+    if (sortOrder === 'asc') {
+      return a.name.localeCompare(b.name)
+    } else {
+      return b.name.localeCompare(a.name)
+    }
+  })
 
   function handleSearch(event: SubmitEvent) {
     event.preventDefault()
@@ -73,12 +86,29 @@ export function UsersPage() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
+              {/* 3. EL BOTÓN EN EL ENCABEZADO */}
+              <th>
+                <button
+                  type="button"
+                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontWeight: 'bold',
+                    padding: 0,
+                    font: 'inherit' // para que herede la fuente de la tabla
+                  }}
+                >
+                  Nombre {sortOrder === 'asc' ? '▲' : '▼'}
+                </button>
+              </th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+             {/* 4. MAPEAMOS sortedUsers EN LUGAR DE users */}
+            {sortedUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.name}</td>

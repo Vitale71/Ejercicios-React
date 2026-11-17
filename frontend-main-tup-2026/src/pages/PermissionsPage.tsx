@@ -1,4 +1,3 @@
-// Solución de "Para completar" del paso 13: listar, crear, editar y borrar permisos.
 import { useState } from 'react'
 import type { SubmitEvent } from 'react'
 import {
@@ -13,6 +12,7 @@ import { ErrorMessage } from '../components/ErrorMessage'
 import { useFetch } from '../hooks/useFetch'
 
 export function PermissionsPage() {
+  // GET /permissions
   const { data: permissions, error, loading, reload } = useFetch(
     getPermissions,
     [],
@@ -28,6 +28,7 @@ export function PermissionsPage() {
     setDescription('')
   }
 
+  // Maneja el submit del formulario, para crear o editar un permiso.
   async function handleSubmit(event: SubmitEvent) {
     event.preventDefault()
     setActionError(null)
@@ -42,7 +43,7 @@ export function PermissionsPage() {
     }
   }
 
-  // GET /permission no trae la descripción y PATCH la reemplaza:
+  // GET /permissions no trae la descripción y PATCH la reemplaza:
   // antes de editar se pide el permiso completo, para no borrarla sin querer.
   async function startEditing(id: number) {
     setActionError(null)
@@ -55,7 +56,8 @@ export function PermissionsPage() {
       setActionError((e as Error).message)
     }
   }
-
+  
+  // DELETE /permissions/:id
   async function handleDelete(id: number) {
     setActionError(null)
     try {
