@@ -11,28 +11,35 @@ import { useToast } from '../context/useToast'
 const PAGE_SIZE = 5
 
 export function UsersPage() {
-  const { can } = useAuth() // nuevo
+  const { can } = useAuth() 
   const { showSuccess } = useToast()
+
   const [offset, setOffset] = useState(0)
   const [searchText, setSearchText] = useState('') // lo que se escribe
   const [search, setSearch] = useState('')         // lo que se busca
   const [onlyAdults, setOnlyAdults] = useState(false)
   const [actionError, setActionError] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<number | null>(null)
-
-  // 1. NUEVO ESTADO: Guardamos la dirección del orden (ascendente por defecto)
+  // Guardamos la dirección del orden (ascendente por defecto)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
   // Un solo pedido que depende de los filtros: si cambia uno, se pide de nuevo.
   const { data: users, error, loading, reload } = useFetch(() => {
     if (search) return searchUsers(search)
     if (onlyAdults) return getAdults()
-    return getUsers(offset, PAGE_SIZE)
+    return getUsers(offset, PAGE_SIZE + 1) // PEDIMOS UNO MÁS (PAGE_SIZE + 1)
   }, [search, onlyAdults, offset])
 
-  // 2. LÓGICA DE ORDENAMIENTO AL RENDERIZAR
+  // LÓGICA DE PAGINACIÓN
+  const rawUsers = users ?? []
+  // Sabemos que hay página siguiente si nos trajeron más de 5
+  const hasNextPage = rawUsers.length > PAGE_SIZE 
+  // Para mostrar en la tabla, cortamos la lista a los primeros 5
+  const visibleUsers = rawUsers.slice(0, PAGE_SIZE)
+
+  // LÓGICA DE ORDENAMIENTO AL RENDERIZAR
   // Hacemos una copia de users (por si es null usamos []) y la ordenamos
-  const sortedUsers = [...(users ?? [])].sort((a, b) => {
+  const sortedUsers = [...visibleUsers].sort((a, b) => {
     if (sortOrder === 'asc') {
       return a.name.localeCompare(b.name)
     } else {
@@ -95,7 +102,7 @@ export function UsersPage() {
           <thead>
             <tr>
               <th>ID</th>
-              {/* 3. EL BOTÓN EN EL ENCABEZADO */}
+              {/* EL BOTÓN EN EL ENCABEZADO */}
               <th>
                 <button
                   type="button"
@@ -116,7 +123,7 @@ export function UsersPage() {
             </tr>
           </thead>
           <tbody>
-             {/* 4. MAPEAMOS sortedUsers EN LUGAR DE users */}
+             {/* Mapeamos sortedUsers (que son solo los 5 visibles) */}
             {sortedUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
@@ -150,9 +157,10 @@ export function UsersPage() {
           >
             Anterior
           </button>
+          {/* USAMOS hasNextPage PARA DESHABILITAR */}
           <button
             type="button"
-            disabled={users.length < PAGE_SIZE}
+            disabled={!hasNextPage}
             onClick={() => setOffset(offset + PAGE_SIZE)}
           >
             Siguiente
