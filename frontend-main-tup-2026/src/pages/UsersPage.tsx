@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import type { SubmitEvent } from 'react'
+import { useState, useEffect } from 'react'
+//import type { SubmitEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteUser, getAdults, getUsers, searchUsers } from '../api/users'
 import { ConfirmButton } from '../components/ConfirmButton'
@@ -23,11 +23,24 @@ export function UsersPage() {
   // Guardamos la dirección del orden (ascendente por defecto)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
 
+  // EL DEBOUNCE - Ejercicio 7
+  useEffect(() => {
+    // Arrancamos el temporizador de 500ms (medio segundo)
+    const timer = setTimeout(() => {
+      setOffset(0) // Volvemos a la página 1 al buscar
+      setSearch(searchText.trim())
+    }, 500)
+
+    // Función de limpieza: si el usuario tipea de nuevo antes de los 500ms,
+    // cancelamos el temporizador anterior y empezamos de cero.
+    return () => clearTimeout(timer)
+  }, [searchText]) // Se ejecuta cada vez que cambia searchText
+
   // Un solo pedido que depende de los filtros: si cambia uno, se pide de nuevo.
   const { data: users, error, loading, reload } = useFetch(() => {
     if (search) return searchUsers(search)
     if (onlyAdults) return getAdults()
-    return getUsers(offset, PAGE_SIZE + 1) // PEDIMOS UNO MÁS (PAGE_SIZE + 1)
+    return getUsers(offset, PAGE_SIZE + 1)
   }, [search, onlyAdults, offset])
 
   // LÓGICA DE PAGINACIÓN
@@ -46,12 +59,6 @@ export function UsersPage() {
       return b.name.localeCompare(a.name)
     }
   })
-
-  function handleSearch(event: SubmitEvent) {
-    event.preventDefault()
-    setOffset(0)
-    setSearch(searchText.trim())
-  }
 
   async function handleDelete(id: number) {
     setActionError(null)
@@ -74,14 +81,14 @@ export function UsersPage() {
       <h1>Usuarios</h1>
       {can('write_users') && <Link to="/users/new">Nuevo usuario</Link>}
 
-      <form onSubmit={handleSearch}>
+      <div>
         <input
           placeholder="Buscar por nombre"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <button type="submit">Buscar</button>
-        <label>
+        {/* El botón "Buscar" ya no está */}
+        <label style={{ marginLeft: '10px' }}>
           <input
             type="checkbox"
             checked={onlyAdults}
@@ -92,7 +99,7 @@ export function UsersPage() {
           />
           Solo mayores de edad
         </label>
-      </form>
+      </div>
 
       <ErrorMessage message={error ?? actionError} />
       {loading && <p>Cargando…</p>}
@@ -102,7 +109,6 @@ export function UsersPage() {
           <thead>
             <tr>
               <th>ID</th>
-              {/* EL BOTÓN EN EL ENCABEZADO */}
               <th>
                 <button
                   type="button"
