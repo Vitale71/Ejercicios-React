@@ -3,11 +3,13 @@
 // verificarlas desde acá, por eso se apaga esa regla en este archivo.
 import { useCallback, useEffect, useState } from 'react'
 import type { DependencyList } from 'react'
+import { ApiError } from '../api/client'
 
 // Los tres estados de cualquier pedido a la API: cargando, error y datos.
 export function useFetch<T>(fetcher: () => Promise<T>, deps: DependencyList) {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [status, setStatus] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [version, setVersion] = useState(0) // subirlo = volver a pedir
 
@@ -17,12 +19,18 @@ export function useFetch<T>(fetcher: () => Promise<T>, deps: DependencyList) {
     let ignore = false
     setLoading(true)
     setError(null)
+    setStatus(null) // Limpiamos el status al recargar
+
     fetcher()
       .then((result) => {
         if (!ignore) setData(result)
       })
       .catch((e: Error) => {
         if (!ignore) setError(e.message)
+          // Si el error es de nuestra clase ApiError, guardamos el código HTTP
+          if (e instanceof ApiError) {
+            setStatus(e.status)
+          }
       })
       .finally(() => {
         if (!ignore) setLoading(false)
@@ -33,6 +41,7 @@ export function useFetch<T>(fetcher: () => Promise<T>, deps: DependencyList) {
   }, [...deps, version])
 
   const reload = useCallback(() => setVersion((v) => v + 1), [])
-
-  return { data, error, loading, reload }
+  
+// Retornamos también el status
+  return { data, error, loading, reload, status }
 }

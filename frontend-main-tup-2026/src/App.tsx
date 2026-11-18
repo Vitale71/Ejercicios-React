@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
@@ -11,6 +11,7 @@ import { UserFormPage } from './pages/UserFormPage'
 import { UsersPage } from './pages/UsersPage'
 import { ToastProvider } from './context/ToastContext'
 import { Toast } from './components/Toast'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 export default function App() {
   return (
@@ -32,7 +33,8 @@ export default function App() {
               <Route path="/permissions" element={<PermissionsPage />} />
             </Route>
           </Route>
-          <Route path="*" element={<Navigate to="/users" replace />} />
+          {/* Ahora muestra la página 404 */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Toast />
         </BrowserRouter>

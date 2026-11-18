@@ -5,17 +5,16 @@ import { addRoleToUser, getUser, removeRoleFromUser } from '../api/users'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useAuth } from '../context/useAuth'
 import { useFetch } from '../hooks/useFetch'
+import { NotFoundPage } from './NotFoundPage'
 
 export function UserDetailPage() {
   const userId = Number(useParams().id)
   const { can, user: me, refreshSession } = useAuth()
   const [selectedRole, setSelectedRole] = useState('')
   const [actionError, setActionError] = useState<string | null>(null)
-
-  // --- NUEVO ESTADO ---
   const [isActionLoading, setIsActionLoading] = useState(false)
 
-  const { data: user, error, loading, reload } = useFetch(
+  const { data: user, error, loading, reload, status } = useFetch(
     () => getUser(userId),
     [userId],
   )
@@ -40,6 +39,8 @@ export function UserDetailPage() {
   }
 
   if (loading && !user) return <p>Cargando…</p>
+  // Si el backend dijo que no existe, mostramos el 404
+  if (status === 404) return <NotFoundPage />
   if (error || !user) return <ErrorMessage message={error} />
 
   // Se cruzan dos listas: todos los roles menos los que el usuario ya tiene.
